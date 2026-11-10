@@ -40,6 +40,14 @@ dotnet test
 
 The password in `appsettings.Development.json` is only for this local Docker database. In Azure, the connection string is stored as an App Service setting and never in the repository.
 
+## Assumptions
+
+- A charge tag id is always lowercase: `dk-` followed by exactly 10 digits and `-clever`.
+- Create only needs the tag id. Linking a tag to a customer or account is handled by another system.
+- A blocked tag stays blocked. Unblocking was not part of the assignment.
+- Verify is called by chargers every time a charging session starts, so it is by far the most used endpoint and should be fast.
+- Create and Block are called by Clever's own systems, e.g. customer service, much less often.
+
 ## Design decisions
 
 - **Azure App Service (Web App) instead of Azure Functions**: the API is a regular ASP.NET Core app with controllers, EF Core and Swagger, so it runs on App Service without changes.
@@ -48,6 +56,14 @@ The password in `appsettings.Development.json` is only for this local Docker dat
 - **Block can be repeated**: blocking an already blocked tag returns the tag unchanged.
 - **Deployment**: GitHub Actions builds, tests and deploys on every push to `main`. It logs in to Azure with OpenID Connect, so no password is stored in GitHub, and the identity can only deploy to this one web app.
 - **Infrastructure**: `infra/setup.ps1` creates the Azure resources once with the Azure CLI.
+
+## Performance and scalability
+
+- Every request is a single primary key lookup or update in one table, so the database work per request is small.
+- The API is stateless, so App Service can scale out to more instances when traffic grows. The free plan used here runs on a single instance.
+- The database can be scaled up by raising the serverless vCore limit or moving to a provisioned tier. A readable secondary replica could serve Verify if reads become the bottleneck.
+- Caching Verify results would reduce the load on the database, but a blocked tag must be rejected right away, so a cache would need a very short lifetime or be cleared on Block.
+- Verify should be load tested, e.g. with Azure Load Testing, to find the real limits before going to production.
 
 ## Assignment extras
 
