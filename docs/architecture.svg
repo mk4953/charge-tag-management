@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="600" viewBox="0 0 1160 600" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <rect width="1160" height="600" fill="#ffffff"/>
+
+  <text x="580" y="45" text-anchor="middle" font-size="28" font-weight="bold" fill="#111">ChargeTags API – architecture</text>
+  <text x="580" y="75" text-anchor="middle" font-size="16" fill="#555">Create, verify and block Clever charge tags</text>
+
+  <rect x="40" y="140" width="220" height="110" rx="14" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+  <text x="150" y="190" text-anchor="middle" font-size="20" font-weight="bold" fill="#111">Clever back office</text>
+  <text x="150" y="216" text-anchor="middle" font-size="14" fill="#555">registers and blocks tags</text>
+
+  <rect x="40" y="380" width="220" height="110" rx="14" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+  <text x="150" y="430" text-anchor="middle" font-size="20" font-weight="bold" fill="#111">Charger</text>
+  <text x="150" y="456" text-anchor="middle" font-size="14" fill="#555">checks a tag before charging</text>
+
+  <rect x="400" y="110" width="360" height="420" rx="14" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="580" y="152" text-anchor="middle" font-size="22" font-weight="bold" fill="#111">ChargeTags API</text>
+  <text x="580" y="177" text-anchor="middle" font-size="15" fill="#555">ASP.NET Core · Azure App Service</text>
+  <line x1="430" y1="197" x2="730" y2="197" stroke="#93c5fd" stroke-width="2"/>
+
+  <text x="430" y="235" font-size="15" font-weight="bold" fill="#111">Create</text>
+  <text x="430" y="256" font-size="14" fill="#1e3a8a" font-family="Consolas, monospace">POST /api/chargetags</text>
+  <text x="430" y="295" font-size="15" font-weight="bold" fill="#111">Verify</text>
+  <text x="430" y="316" font-size="14" fill="#1e3a8a" font-family="Consolas, monospace">GET /api/chargetags/verify?tagId=</text>
+  <text x="430" y="355" font-size="15" font-weight="bold" fill="#111">Block</text>
+  <text x="430" y="376" font-size="14" fill="#1e3a8a" font-family="Consolas, monospace">POST /api/chargetags/{tagId}/block</text>
+
+  <line x1="430" y1="402" x2="730" y2="402" stroke="#93c5fd" stroke-width="2"/>
+  <text x="430" y="432" font-size="14" fill="#333">Validates the id: dk-{10 digits}-clever</text>
+  <text x="430" y="460" font-size="14" fill="#333">Swagger UI (OpenAPI) and logging</text>
+  <text x="430" y="488" font-size="14" fill="#333">Entity Framework Core</text>
+
+  <path d="M895,128 v72 a115,18 0 0 0 230,0 v-72" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <ellipse cx="1010" cy="128" rx="115" ry="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="1010" y="172" text-anchor="middle" font-size="18" font-weight="bold" fill="#111">Azure SQL Database</text>
+  <text x="1010" y="194" text-anchor="middle" font-size="13" fill="#555">SQL Server in Docker locally</text>
+
+  <line x1="1010" y1="218" x2="1010" y2="262" stroke="#16a34a" stroke-width="2"/>
+
+  <rect x="880" y="262" width="260" height="190" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+  <rect x="880" y="262" width="260" height="38" rx="8" fill="#16a34a"/>
+  <rect x="880" y="285" width="260" height="15" fill="#16a34a"/>
+  <text x="1010" y="287" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">Table: ChargeTags</text>
+
+  <text x="896" y="325" font-size="14" font-weight="bold" fill="#111">Id</text>
+  <text x="1124" y="325" text-anchor="end" font-size="13" fill="#555">nvarchar(20) · key</text>
+  <line x1="880" y1="338" x2="1140" y2="338" stroke="#d1d5db"/>
+
+  <text x="896" y="363" font-size="14" font-weight="bold" fill="#111">IsBlocked</text>
+  <text x="1124" y="363" text-anchor="end" font-size="13" fill="#555">bit</text>
+  <line x1="880" y1="376" x2="1140" y2="376" stroke="#d1d5db"/>
+
+  <text x="896" y="401" font-size="14" font-weight="bold" fill="#111">CreatedAt</text>
+  <text x="1124" y="401" text-anchor="end" font-size="13" fill="#555">datetimeoffset</text>
+  <line x1="880" y1="414" x2="1140" y2="414" stroke="#d1d5db"/>
+
+  <text x="896" y="439" font-size="14" font-weight="bold" fill="#111">BlockedAt</text>
+  <text x="1124" y="439" text-anchor="end" font-size="13" fill="#555">datetimeoffset · null</text>
+
+  <line x1="260" y1="195" x2="396" y2="195" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="328" y="183" text-anchor="middle" font-size="15" font-weight="bold" fill="#2563eb">Create · Block</text>
+
+  <line x1="260" y1="435" x2="396" y2="435" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="328" y="423" text-anchor="middle" font-size="15" font-weight="bold" fill="#2563eb">Verify</text>
+
+  <line x1="764" y1="357" x2="876" y2="357" stroke="#2563eb" stroke-width="3" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="820" y="345" text-anchor="middle" font-size="15" font-weight="bold" fill="#2563eb">read / write</text>
+</svg>
